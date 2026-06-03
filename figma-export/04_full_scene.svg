@@ -1,0 +1,197 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 800" width="720" height="800">
+  <defs>
+    <!-- envelope colors -->
+    <linearGradient id="env_back_grad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f9d6e7"/>
+      <stop offset="100%" stop-color="#e8175d"/>
+    </linearGradient>
+    <linearGradient id="env_front_grad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fce8f0"/>
+      <stop offset="100%" stop-color="#f7c8d8"/>
+    </linearGradient>
+    <linearGradient id="env_flap_grad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#e8175d"/>
+      <stop offset="100%" stop-color="#b50e48"/>
+    </linearGradient>
+    <radialGradient id="stage_bg" cx="50%" cy="30%" r="65%">
+      <stop offset="0%" stop-color="#2a1820"/>
+      <stop offset="100%" stop-color="#0d0d0d"/>
+    </radialGradient>
+
+    <!-- balloon colors -->
+    <radialGradient id="grad_hotpink" cx="32%" cy="28%" r="65%">
+      <stop offset="0%" stop-color="#ffc4d8"/>
+      <stop offset="35%" stop-color="#ff5a99"/>
+      <stop offset="70%" stop-color="#e8175d"/>
+      <stop offset="100%" stop-color="#8b0a35"/>
+    </radialGradient>
+    <radialGradient id="grad_lightpink" cx="32%" cy="28%" r="65%">
+      <stop offset="0%" stop-color="#ffe6f0"/>
+      <stop offset="40%" stop-color="#ffb3cc"/>
+      <stop offset="80%" stop-color="#ff8aaf"/>
+      <stop offset="100%" stop-color="#c75a85"/>
+    </radialGradient>
+    <radialGradient id="grad_magenta" cx="32%" cy="28%" r="65%">
+      <stop offset="0%" stop-color="#ffb0e0"/>
+      <stop offset="35%" stop-color="#ff3399"/>
+      <stop offset="70%" stop-color="#c80f6f"/>
+      <stop offset="100%" stop-color="#5a042f"/>
+    </radialGradient>
+    <radialGradient id="grad_black" cx="32%" cy="28%" r="65%">
+      <stop offset="0%" stop-color="#9a9a9a"/>
+      <stop offset="35%" stop-color="#3a3a3a"/>
+      <stop offset="70%" stop-color="#161616"/>
+      <stop offset="100%" stop-color="#000"/>
+    </radialGradient>
+    <radialGradient id="grad_gold" cx="32%" cy="28%" r="65%">
+      <stop offset="0%" stop-color="#fff4cf"/>
+      <stop offset="35%" stop-color="#f3d27a"/>
+      <stop offset="70%" stop-color="#c89c2e"/>
+      <stop offset="100%" stop-color="#7a5a10"/>
+    </radialGradient>
+    <linearGradient id="stringGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="rgba(180,180,180,0.7)"/>
+      <stop offset="100%" stop-color="rgba(180,180,180,0.1)"/>
+    </linearGradient>
+
+    <filter id="env_shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="20" stdDeviation="15" flood-color="#e8175d" flood-opacity="0.3"/>
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#000" flood-opacity="0.5"/>
+    </filter>
+    <filter id="balloon_shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="6" stdDeviation="4" flood-color="#e8175d" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+  <!-- stage background -->
+  <rect id="stage-bg" width="720" height="800" fill="url(#stage_bg)"/>
+
+  <!-- balloons rising from envelope top -->
+  <g id="balloons">
+    <g opacity="1.00"><g transform="translate(197.94920161297244,153.12291928132) scale(0.897993077555671) rotate(-7.386459786175628)" filter="url(#balloon_shadow)">
+      <ellipse cx="25" cy="28" rx="22" ry="27" fill="url(#grad_lightpink)"/>
+      <ellipse cx="17" cy="18" rx="6" ry="3.5" fill="rgba(255,255,255,0.55)" transform="rotate(-25 17 18)"/>
+      <ellipse cx="14" cy="14" rx="2" ry="1.3" fill="rgba(255,255,255,0.85)"/>
+      <path d="M22,54 L25,58 L28,54 L26,52 Z" fill="#c75a85"/>
+      <path d="M25,58 Q24,66 26,75" stroke="url(#stringGrad)" stroke-width="0.7" fill="none"/>
+    </g>
+    <g opacity="1.00"><g transform="translate(313.4891385414456,254.9216254366349) scale(0.7936731837958821) rotate(-11.520208650619661)" filter="url(#balloon_shadow)">
+      <ellipse cx="25" cy="28" rx="22" ry="27" fill="url(#grad_lightpink)"/>
+      <ellipse cx="17" cy="18" rx="6" ry="3.5" fill="rgba(255,255,255,0.55)" transform="rotate(-25 17 18)"/>
+      <ellipse cx="14" cy="14" rx="2" ry="1.3" fill="rgba(255,255,255,0.85)"/>
+      <path d="M22,54 L25,58 L28,54 L26,52 Z" fill="#c75a85"/>
+      <path d="M25,58 Q24,66 26,75" stroke="url(#stringGrad)" stroke-width="0.7" fill="none"/>
+    </g>
+    <g opacity="1.00"><g transform="translate(239.60912147965172,165.85411837093199) scale(1.0608257201646514) rotate(-2.9021898998018614)" filter="url(#balloon_shadow)">
+      <ellipse cx="25" cy="28" rx="22" ry="27" fill="url(#grad_gold)"/>
+      <ellipse cx="17" cy="18" rx="6" ry="3.5" fill="rgba(255,255,255,0.55)" transform="rotate(-25 17 18)"/>
+      <ellipse cx="14" cy="14" rx="2" ry="1.3" fill="rgba(255,255,255,0.85)"/>
+      <path d="M22,54 L25,58 L28,54 L26,52 Z" fill="#7a5a10"/>
+      <path d="M25,58 Q24,66 26,75" stroke="url(#stringGrad)" stroke-width="0.7" fill="none"/>
+    </g>
+    <g opacity="1.00"><g transform="translate(282.5080805980717,207.6601223110644) scale(1.0966409588284272) rotate(-10.485871663146757)" filter="url(#balloon_shadow)">
+      <ellipse cx="25" cy="28" rx="22" ry="27" fill="url(#grad_magenta)"/>
+      <ellipse cx="17" cy="18" rx="6" ry="3.5" fill="rgba(255,255,255,0.55)" transform="rotate(-25 17 18)"/>
+      <ellipse cx="14" cy="14" rx="2" ry="1.3" fill="rgba(255,255,255,0.85)"/>
+      <path d="M22,54 L25,58 L28,54 L26,52 Z" fill="#5a042f"/>
+      <path d="M25,58 Q24,66 26,75" stroke="url(#stringGrad)" stroke-width="0.7" fill="none"/>
+    </g>
+    <g opacity="1.00"><g transform="translate(284.9109595391204,174.3825624125891) scale(0.964337268644733) rotate(-3.8774739084686303)" filter="url(#balloon_shadow)">
+      <ellipse cx="25" cy="28" rx="22" ry="27" fill="url(#grad_magenta)"/>
+      <ellipse cx="17" cy="18" rx="6" ry="3.5" fill="rgba(255,255,255,0.55)" transform="rotate(-25 17 18)"/>
+      <ellipse cx="14" cy="14" rx="2" ry="1.3" fill="rgba(255,255,255,0.85)"/>
+      <path d="M22,54 L25,58 L28,54 L26,52 Z" fill="#5a042f"/>
+      <path d="M25,58 Q24,66 26,75" stroke="url(#stringGrad)" stroke-width="0.7" fill="none"/>
+    </g>
+    <g opacity="1.00"><g transform="translate(290.95319294680917,140.67745020277982) scale(0.9598885462189053) rotate(9.632999040111837)" filter="url(#balloon_shadow)">
+      <ellipse cx="25" cy="28" rx="22" ry="27" fill="url(#grad_magenta)"/>
+      <ellipse cx="17" cy="18" rx="6" ry="3.5" fill="rgba(255,255,255,0.55)" transform="rotate(-25 17 18)"/>
+      <ellipse cx="14" cy="14" rx="2" ry="1.3" fill="rgba(255,255,255,0.85)"/>
+      <path d="M22,54 L25,58 L28,54 L26,52 Z" fill="#5a042f"/>
+      <path d="M25,58 Q24,66 26,75" stroke="url(#stringGrad)" stroke-width="0.7" fill="none"/>
+    </g>
+    <g opacity="1.00"><g transform="translate(327.167087641431,240.201365874107) scale(0.7257493988863105) rotate(10.705234415077832)" filter="url(#balloon_shadow)">
+      <ellipse cx="25" cy="28" rx="22" ry="27" fill="url(#grad_black)"/>
+      <ellipse cx="17" cy="18" rx="6" ry="3.5" fill="rgba(255,255,255,0.55)" transform="rotate(-25 17 18)"/>
+      <ellipse cx="14" cy="14" rx="2" ry="1.3" fill="rgba(255,255,255,0.85)"/>
+      <path d="M22,54 L25,58 L28,54 L26,52 Z" fill="#000"/>
+      <path d="M25,58 Q24,66 26,75" stroke="url(#stringGrad)" stroke-width="0.7" fill="none"/>
+    </g>
+    <g opacity="1.00"><g transform="translate(330.991101227922,225.72088061646983) scale(1.0784177299151199) rotate(1.8950828533643183)" filter="url(#balloon_shadow)">
+      <ellipse cx="25" cy="28" rx="22" ry="27" fill="url(#grad_hotpink)"/>
+      <ellipse cx="17" cy="18" rx="6" ry="3.5" fill="rgba(255,255,255,0.55)" transform="rotate(-25 17 18)"/>
+      <ellipse cx="14" cy="14" rx="2" ry="1.3" fill="rgba(255,255,255,0.85)"/>
+      <path d="M22,54 L25,58 L28,54 L26,52 Z" fill="#8b0a35"/>
+      <path d="M25,58 Q24,66 26,75" stroke="url(#stringGrad)" stroke-width="0.7" fill="none"/>
+    </g>
+    <g opacity="0.79"><g transform="translate(364.720485496801,33.33128806473064) scale(0.8142612920919658) rotate(-3.4392782708931744)" filter="url(#balloon_shadow)">
+      <ellipse cx="25" cy="28" rx="22" ry="27" fill="url(#grad_gold)"/>
+      <ellipse cx="17" cy="18" rx="6" ry="3.5" fill="rgba(255,255,255,0.55)" transform="rotate(-25 17 18)"/>
+      <ellipse cx="14" cy="14" rx="2" ry="1.3" fill="rgba(255,255,255,0.85)"/>
+      <path d="M22,54 L25,58 L28,54 L26,52 Z" fill="#7a5a10"/>
+      <path d="M25,58 Q24,66 26,75" stroke="url(#stringGrad)" stroke-width="0.7" fill="none"/>
+    </g>
+    <g opacity="1.00"><g transform="translate(346.1604131413873,242.20679488536769) scale(1.0057181197443958) rotate(-9.65720423487282)" filter="url(#balloon_shadow)">
+      <ellipse cx="25" cy="28" rx="22" ry="27" fill="url(#grad_lightpink)"/>
+      <ellipse cx="17" cy="18" rx="6" ry="3.5" fill="rgba(255,255,255,0.55)" transform="rotate(-25 17 18)"/>
+      <ellipse cx="14" cy="14" rx="2" ry="1.3" fill="rgba(255,255,255,0.85)"/>
+      <path d="M22,54 L25,58 L28,54 L26,52 Z" fill="#c75a85"/>
+      <path d="M25,58 Q24,66 26,75" stroke="url(#stringGrad)" stroke-width="0.7" fill="none"/>
+    </g>
+    <g opacity="1.00"><g transform="translate(413.2266354108686,83.39928373717859) scale(1.079999892842491) rotate(8.243831186526759)" filter="url(#balloon_shadow)">
+      <ellipse cx="25" cy="28" rx="22" ry="27" fill="url(#grad_hotpink)"/>
+      <ellipse cx="17" cy="18" rx="6" ry="3.5" fill="rgba(255,255,255,0.55)" transform="rotate(-25 17 18)"/>
+      <ellipse cx="14" cy="14" rx="2" ry="1.3" fill="rgba(255,255,255,0.85)"/>
+      <path d="M22,54 L25,58 L28,54 L26,52 Z" fill="#8b0a35"/>
+      <path d="M25,58 Q24,66 26,75" stroke="url(#stringGrad)" stroke-width="0.7" fill="none"/>
+    </g>
+    <g opacity="1.00"><g transform="translate(362.7136875311169,224.65851659728912) scale(0.7600639473072859) rotate(0.689284673515763)" filter="url(#balloon_shadow)">
+      <ellipse cx="25" cy="28" rx="22" ry="27" fill="url(#grad_hotpink)"/>
+      <ellipse cx="17" cy="18" rx="6" ry="3.5" fill="rgba(255,255,255,0.55)" transform="rotate(-25 17 18)"/>
+      <ellipse cx="14" cy="14" rx="2" ry="1.3" fill="rgba(255,255,255,0.85)"/>
+      <path d="M22,54 L25,58 L28,54 L26,52 Z" fill="#8b0a35"/>
+      <path d="M25,58 Q24,66 26,75" stroke="url(#stringGrad)" stroke-width="0.7" fill="none"/>
+    </g>
+    <g opacity="1.00"><g transform="translate(347.89770587895663,260.0021670291262) scale(1.061288252045876) rotate(0.17801354761092547)" filter="url(#balloon_shadow)">
+      <ellipse cx="25" cy="28" rx="22" ry="27" fill="url(#grad_gold)"/>
+      <ellipse cx="17" cy="18" rx="6" ry="3.5" fill="rgba(255,255,255,0.55)" transform="rotate(-25 17 18)"/>
+      <ellipse cx="14" cy="14" rx="2" ry="1.3" fill="rgba(255,255,255,0.85)"/>
+      <path d="M22,54 L25,58 L28,54 L26,52 Z" fill="#7a5a10"/>
+      <path d="M25,58 Q24,66 26,75" stroke="url(#stringGrad)" stroke-width="0.7" fill="none"/>
+    </g>
+    <g opacity="1.00"><g transform="translate(386.04665443767766,218.41259169297905) scale(0.7975545135375982) rotate(-11.714011735491752)" filter="url(#balloon_shadow)">
+      <ellipse cx="25" cy="28" rx="22" ry="27" fill="url(#grad_black)"/>
+      <ellipse cx="17" cy="18" rx="6" ry="3.5" fill="rgba(255,255,255,0.55)" transform="rotate(-25 17 18)"/>
+      <ellipse cx="14" cy="14" rx="2" ry="1.3" fill="rgba(255,255,255,0.85)"/>
+      <path d="M22,54 L25,58 L28,54 L26,52 Z" fill="#000"/>
+      <path d="M25,58 Q24,66 26,75" stroke="url(#stringGrad)" stroke-width="0.7" fill="none"/>
+    </g>
+    <g opacity="1.00"><g transform="translate(401.8690460224316,205.28415643108636) scale(0.8693607427322054) rotate(-2.953774756487647)" filter="url(#balloon_shadow)">
+      <ellipse cx="25" cy="28" rx="22" ry="27" fill="url(#grad_lightpink)"/>
+      <ellipse cx="17" cy="18" rx="6" ry="3.5" fill="rgba(255,255,255,0.55)" transform="rotate(-25 17 18)"/>
+      <ellipse cx="14" cy="14" rx="2" ry="1.3" fill="rgba(255,255,255,0.85)"/>
+      <path d="M22,54 L25,58 L28,54 L26,52 Z" fill="#c75a85"/>
+      <path d="M25,58 Q24,66 26,75" stroke="url(#stringGrad)" stroke-width="0.7" fill="none"/>
+    </g>
+    <g opacity="0.72"><g transform="translate(620.3222410921965,30.389039540756613) scale(0.7701003958506606) rotate(-2.4896653682716696)" filter="url(#balloon_shadow)">
+      <ellipse cx="25" cy="28" rx="22" ry="27" fill="url(#grad_hotpink)"/>
+      <ellipse cx="17" cy="18" rx="6" ry="3.5" fill="rgba(255,255,255,0.55)" transform="rotate(-25 17 18)"/>
+      <ellipse cx="14" cy="14" rx="2" ry="1.3" fill="rgba(255,255,255,0.85)"/>
+      <path d="M22,54 L25,58 L28,54 L26,52 Z" fill="#8b0a35"/>
+      <path d="M25,58 Q24,66 26,75" stroke="url(#stringGrad)" stroke-width="0.7" fill="none"/>
+    </g>
+  </g>
+
+  <!-- envelope -->
+  <g id="envelope" transform="translate(180.0, 280.0)" filter="url(#env_shadow)">
+    <rect id="env-back" width="360" height="240" rx="6" fill="url(#env_back_grad)"/>
+    <polygon id="env-front" points="0,108.0 180.0,240 360,108.0 360,240 0,240" fill="url(#env_front_grad)"/>
+    <polygon id="env-front-sheen" points="0,108.0 180.0,240 360,108.0 360,240 0,240" fill="rgba(232,23,93,0.06)"/>
+    <polygon id="env-flap" points="0,0 360,0 180.0,115.19999999999999" fill="url(#env_flap_grad)"/>
+    <image id="env-seal" href="seal.png" x="135.0" y="70.19999999999999" width="90" height="90"/>
+  </g>
+
+  <!-- "TAP TO OPEN" label -->
+  <text x="360.0" y="576.0" text-anchor="middle"
+        font-family="Montserrat, sans-serif" font-size="11" font-weight="600"
+        letter-spacing="3.85" fill="rgba(255,255,255,0.45)">TAP TO OPEN</text>
+</svg>
