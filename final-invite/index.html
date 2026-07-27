@@ -298,6 +298,28 @@
     margin-bottom: 12px; display: none;
   }
 
+  .detail-greeting {
+    font-family: 'Dancing Script', cursive;
+    font-size: 22px;
+    color: var(--hot-pink);
+    text-align: center;
+    margin-bottom: 4px;
+    line-height: 1;
+  }
+  .rsvp-section {
+    margin-top: 18px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(232,23,93,0.15);
+  }
+  .rsvp-heading {
+    font-family: 'Dancing Script', cursive;
+    font-size: 30px;
+    color: var(--hot-pink);
+    text-align: center;
+    margin: 0 0 12px;
+    line-height: 1;
+  }
+
   /* SUCCESS */
   .success-msg { display: none; text-align: center; padding: 24px 8px 12px; }
   .check-icon {
@@ -881,14 +903,15 @@
 
       <!-- FRONT -->
       <div class="card-face card-front">
-        <img class="invite-img" src="../figma-export/card_front.jpg" alt="Simone's Sweet 16 — A Night in Paris"/>
-        <button class="card-rsvp-btn" onclick="flipToForm()">Open Invitation</button>
-        <div class="card-rsvp-hint">Tap to see details</div>
+        <img class="invite-img" src="../figma-export/card_front_final.jpg" alt="Simone's Sweet 16 — A Night in Paris"/>
+        <button class="card-rsvp-btn" onclick="flipToForm()">View Details &amp; RSVP</button>
+        <div class="card-rsvp-hint">Tap to open</div>
       </div>
 
             <!-- BACK — full event details -->
       <div class="card-face card-back">
         <div class="detail-scroll">
+          <div class="detail-greeting" id="cfGreeting" style="display:none;"></div>
           <h2 class="form-title">You're Invited</h2>
           <p class="form-sub">To Celebrate</p>
 
@@ -919,28 +942,46 @@
           <div class="detail-row">
             <div class="detail-label">Dress Code</div>
             <div class="detail-value">
-              All Black · Paris Chic
+              Paris Chic
             </div>
           </div>
 
-          <div class="detail-row">
-            <div class="detail-label">Good to Know</div>
-            <div class="detail-value">
-              Mixed indoor + outdoor venue.<br>
-              We have a rain plan in place.
-            </div>
+          <div class="rsvp-section" id="rsvpFormContainer">
+            <h3 class="rsvp-heading">RSVP</h3>
+            <form id="rsvpForm" novalidate>
+              <div class="form-error-msg" id="formError"></div>
+
+              <div class="form-group">
+                <label for="guestName">Your Name <span class="req">*</span></label>
+                <input type="text" id="guestName" name="guestName" required autocomplete="name" placeholder="First Last"/>
+              </div>
+
+              <div class="form-group">
+                <label for="attending">Will You Attend? <span class="req">*</span></label>
+                <select id="attending" name="attending" required>
+                  <option value="">— Select —</option>
+                  <option value="yes">Yes, I'll be there!</option>
+                  <option value="no">No, plans changed</option>
+                </select>
+              </div>
+
+              <button type="submit" class="btn-submit" id="submitBtn">Send RSVP</button>
+              <button type="button" class="btn-back" onclick="flipToCard()">&#8592; Back to Invitation</button>
+            </form>
           </div>
 
-          <a class="btn-gift" href="https://giftful.com/wishlists/YIEN3XaMUOGOb1VMRVqgIf" target="_blank" rel="noopener">
-            View Gift List 🎁
-          </a>
-
-          <p class="detail-close">
-            Questions? Text the host directly.<br>
-            <em>Can't wait to celebrate with you.</em>
-          </p>
-
-          <button type="button" class="btn-back" onclick="flipToCard()">&#8592; Back</button>
+          <div class="success-msg" id="successMsg" style="display:none;">
+            <div class="check-icon">&#10003;</div>
+            <h3>Confirmed!</h3>
+            <p>Thanks for letting us know.<br>See you August 8th!</p>
+            <a class="btn-gift" href="https://giftful.com/wishlists/YIEN3XaMUOGOb1VMRVqgIf" target="_blank" rel="noopener">
+              View Gift List 🎁
+            </a>
+            <p class="detail-close" style="margin-top:14px;">
+              <em>Can't wait to celebrate with you.</em>
+            </p>
+            <button type="button" class="btn-back" onclick="flipToCard()">&#8592; Back to Invitation</button>
+          </div>
         </div>
       </div>
     </div>
@@ -953,7 +994,39 @@
 </section>
 
 <script>
+  const FORM_ENDPOINT = 'https://docs.google.com/forms/d/e/1FAIpQLSd-Q-XwW8gjAmzSGYZxc0jf9g6Asus84z6aQVmOZoNgauIiPQ/formResponse';
+  const FORM_ENTRIES = {
+    name:      'entry.559352220',
+    attending: 'entry.877086558',
+  };
+  const ATTENDING_MAP = {
+    yes: "Yes, I'll be there",
+    no:  "No, plans changed",
+  };
+
   const stage = document.getElementById('stage');
+  const form = document.getElementById('rsvpForm');
+  const errBox = document.getElementById('formError');
+  const submitBtn = document.getElementById('submitBtn');
+  const successMsg = document.getElementById('successMsg');
+  const formContainer = document.getElementById('rsvpFormContainer');
+
+  /* ── Read URL params for personalization ── */
+  const urlParams = new URLSearchParams(window.location.search);
+  const guestName  = (urlParams.get('n') || '').trim();
+  const guestEmail = (urlParams.get('e') || '').trim();
+  const guestPhone = (urlParams.get('p') || '').trim();
+
+  if (guestName) {
+    const first = guestName.split(/\s+/)[0];
+    const greetEl = document.getElementById('cfGreeting');
+    if (greetEl) {
+      greetEl.textContent = 'Hi ' + first + '!';
+      greetEl.style.display = 'block';
+    }
+    const nameEl = document.getElementById('guestName');
+    if (nameEl) nameEl.value = guestName;
+  }
 
   /* ── Envelope open ── */
   function openEnvelope() {
@@ -967,8 +1040,66 @@
   });
 
   /* ── Card flip ── */
-  function flipToForm() { stage.dataset.state = 'form'; }
+  function flipToForm() {
+    stage.dataset.state = 'form';
+    setTimeout(() => {
+      const f = document.getElementById('guestName');
+      if (f && !f.value) f.focus({preventScroll: true});
+    }, 1050);
+  }
   function flipToCard() { stage.dataset.state = 'open'; }
+
+  /* ── Form ── */
+  function showError(msg, fields = []) {
+    errBox.textContent = msg;
+    errBox.style.display = 'block';
+    fields.forEach(f => { const el = document.getElementById(f); if (el) el.classList.add('error'); });
+  }
+  function clearError() { errBox.style.display = 'none'; }
+
+  if (form) {
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+      clearError();
+
+      let submittedName = document.getElementById('guestName').value.trim();
+      const attending   = document.getElementById('attending').value;
+
+      const missing = [];
+      if (!submittedName) missing.push('guestName');
+      if (!attending)     missing.push('attending');
+      if (missing.length) { showError('Please fill in the required fields.', missing); return; }
+
+      // Append contact tag so host can reconcile the RSVP to the send list
+      if (guestEmail || guestPhone) {
+        const tag = [guestEmail, guestPhone].filter(Boolean).join(' | ');
+        submittedName = submittedName + '  —  ' + tag;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending...';
+
+      const fd = new FormData();
+      fd.append(FORM_ENTRIES.name,      submittedName);
+      fd.append(FORM_ENTRIES.attending, ATTENDING_MAP[attending] || attending);
+
+      try {
+        await fetch(FORM_ENDPOINT, { method: 'POST', mode: 'no-cors', body: fd });
+        formContainer.style.display = 'none';
+        successMsg.style.display = 'block';
+      } catch (err) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Send RSVP';
+        showError('Something went wrong. Please try again or text the host.');
+        console.error(err);
+      }
+    });
+
+    ['guestName','attending'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.addEventListener('input', () => el.classList.remove('error'));
+    });
+  }
 </script>
 </body>
 </html>

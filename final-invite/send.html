@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex,nofollow" />
+<title>Send Invites — Simone's Sweet 16</title>
+<style>
+  :root {
+    --hot-pink: #e8175d;
+    --hot-pink-dark: #c01050;
+    --light-pink: #f7c8d8;
+    --pale-pink: #fce8f0;
+    --dark: #1a1a1a;
+    --gray: #666;
+    --border: #e5e5e5;
+    --bg: #faf7f5;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--dark);
+    margin: 0;
+    padding: 32px 20px 60px;
+    line-height: 1.5;
+  }
+  .wrap { max-width: 1000px; margin: 0 auto; }
+  h1 {
+    font-family: 'Dancing Script', 'Georgia', cursive;
+    color: var(--hot-pink);
+    font-size: 42px;
+    margin: 0 0 4px;
+    letter-spacing: 0.5px;
+  }
+  .sub { color: var(--gray); margin: 0 0 24px; font-size: 14px; }
+  .card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  h2 { margin: 0 0 6px; font-size: 18px; color: var(--dark); }
+  h2 .step { color: var(--hot-pink); font-family: 'Dancing Script', cursive; font-size: 26px; margin-right: 6px; }
+  label { display: block; font-weight: 600; margin: 12px 0 4px; font-size: 13px; }
+  .hint { font-size: 12px; color: var(--gray); margin: 4px 0 8px; }
+  textarea, input[type="text"] {
+    width: 100%;
+    font: 14px/1.4 -apple-system, "Segoe UI", monospace;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: white;
+    color: var(--dark);
+  }
+  textarea { min-height: 220px; font-family: "SF Mono", Consolas, monospace; font-size: 13px; }
+  input[type="text"]:focus, textarea:focus {
+    outline: none; border-color: var(--hot-pink);
+    box-shadow: 0 0 0 2px rgba(232,23,93,0.12);
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 16px;
+    border: none;
+    border-radius: 8px;
+    background: var(--hot-pink);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 13px;
+    text-decoration: none;
+    transition: background 0.15s;
+  }
+  .btn:hover { background: var(--hot-pink-dark); }
+  .btn.secondary { background: white; color: var(--dark); border: 1px solid var(--border); }
+  .btn.secondary:hover { background: var(--pale-pink); border-color: var(--hot-pink); color: var(--hot-pink-dark); }
+  .btn.big { padding: 14px 28px; font-size: 15px; }
+  .btn.small { padding: 5px 10px; font-size: 12px; }
+  .btn.tiny { padding: 3px 8px; font-size: 11px; }
+  .toolbar { display: flex; gap: 10px; align-items: center; margin-top: 12px; flex-wrap: wrap; }
+  .stats { color: var(--gray); font-size: 13px; margin-left: auto; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 8px;
+    font-size: 13px;
+  }
+  th, td {
+    text-align: left;
+    padding: 10px 8px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  th {
+    background: var(--pale-pink);
+    color: var(--hot-pink-dark);
+    font-weight: 700;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  tr:hover td { background: #fdfbfa; }
+  .contact { color: var(--gray); font-size: 12px; }
+  .contact div { line-height: 1.35; }
+  .link-cell {
+    font-family: "SF Mono", Consolas, monospace;
+    font-size: 11px;
+    color: var(--gray);
+    word-break: break-all;
+    max-width: 320px;
+  }
+  .warn {
+    background: #fff8e6;
+    border: 1px solid #ffd8a1;
+    color: #7a4d00;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    margin-top: 12px;
+  }
+  .warn strong { color: #b56a00; }
+  .info {
+    background: #e8f5ff;
+    border: 1px solid #a1cbff;
+    color: #003a7a;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    margin-top: 12px;
+  }
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--dark);
+    color: white;
+    padding: 10px 18px;
+    border-radius: 999px;
+    font-size: 13px;
+    opacity: 0;
+    transition: opacity 0.2s;
+    pointer-events: none;
+    z-index: 999;
+  }
+  .toast.show { opacity: 1; }
+  .parsed-list { display: none; }
+  .parsed-list.on { display: block; }
+  .script-preview {
+    display: none;
+    background: #1e1e1e;
+    color: #dcdcdc;
+    font-family: "SF Mono", Consolas, monospace;
+    font-size: 12px;
+    padding: 14px;
+    border-radius: 8px;
+    max-height: 320px;
+    overflow: auto;
+    white-space: pre;
+    margin-top: 12px;
+  }
+  .script-preview.on { display: block; }
+  ol.steps { padding-left: 22px; margin: 8px 0 4px; line-height: 1.7; }
+  ol.steps li { margin-bottom: 4px; font-size: 14px; }
+  ol.steps li strong { color: var(--hot-pink-dark); }
+  ol.steps code { background: var(--pale-pink); padding: 1px 6px; border-radius: 3px; font-size: 12px; color: var(--hot-pink-dark); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Send Invites</h1>
+  <p class="sub">Simone's Sweet 16 · A Night in Paris · Sat Aug 8, 2026</p>
+
+  <div class="card">
+    <h2><span class="step">1</span>Base invite URL</h2>
+    <label for="baseUrl">Where the invite lives</label>
+    <input type="text" id="baseUrl" value="https://skylarcmr.github.io/sweet-16-invite/final-invite/" />
+    <p class="hint">Personal links append <code>?n=Name&e=email&p=phone</code> to this.</p>
+  </div>
+
+  <div class="card">
+    <h2><span class="step">2</span>Guest list</h2>
+    <label for="guestList">Paste one guest per line — <em>Name, Email, Phone</em></label>
+    <p class="hint">Any field can be blank. Commas or tabs both work. Blank lines are skipped. Guests without an email won't get an auto-send.</p>
+    <textarea id="guestList" placeholder="Jane Doe, jane@example.com, 773-555-1234&#10;John Smith, john@example.com, 555-1234&#10;Sara Lee, sara@example.com,"></textarea>
+    <div class="toolbar">
+      <button class="btn" onclick="parseGuests()">Generate personal links</button>
+      <button class="btn secondary" onclick="clearGuests()">Clear</button>
+      <span class="stats" id="stats"></span>
+    </div>
+  </div>
+
+  <div class="card parsed-list" id="parsedCard">
+    <h2><span class="step">3</span>Review links</h2>
+    <p class="hint">Each guest gets a unique personalized URL. When they open it, their name is pre-filled on the RSVP form and their contact info is embedded so RSVPs can be matched back to your send list.</p>
+
+    <table id="guestTable">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Contact</th>
+          <th>Personal link</th>
+        </tr>
+      </thead>
+      <tbody id="guestTbody"></tbody>
+    </table>
+
+    <div class="toolbar">
+      <button class="btn secondary" onclick="downloadCsv()">Download CSV (record-keeping)</button>
+      <button class="btn secondary" onclick="copyAllLinks()">Copy all links</button>
+    </div>
+  </div>
+
+  <div class="card parsed-list" id="sendCard">
+    <h2><span class="step">4</span>Send emails via Google Apps Script</h2>
+    <p class="hint">This sends real emails from your Gmail account (skylarmcr24@gmail.com) using Google's free daily quota. No cost, no third-party service.</p>
+
+    <div class="info">
+      <strong>One-time setup (5 minutes):</strong>
+      <ol class="steps">
+        <li>Go to <a href="https://script.google.com/home" target="_blank" rel="noopener"><strong>script.google.com</strong></a> and click <strong>New project</strong>.</li>
+        <li>Delete the sample code, then click <strong>Copy Apps Script code</strong> below and paste into the editor.</li>
+        <li>Click the <strong>disk icon</strong> to save (name it "Sweet 16 Invites").</li>
+        <li>In the toolbar, choose function <code>previewFirstInvite</code> and click <strong>Run</strong>. First run will ask permission — <strong>Review permissions → Advanced → Go to Sweet 16 Invites (unsafe) → Allow</strong>. This lets the script send emails from your Gmail.</li>
+        <li>Open the <strong>Execution log</strong> (bottom) to see the preview email — make sure it looks right.</li>
+        <li>When happy, choose function <code>sendAllInvites</code> and click <strong>Run</strong> — sends to every guest with an email.</li>
+      </ol>
+    </div>
+
+    <div class="toolbar">
+      <button class="btn big" id="copyScriptBtn" onclick="copyAppsScript()">Copy Apps Script code</button>
+      <button class="btn secondary" onclick="toggleScriptPreview()">Show / hide code</button>
+    </div>
+
+    <div class="script-preview" id="scriptPreview"></div>
+
+    <div class="warn">
+      <strong>Note:</strong> Guests without an email address are skipped by the script. For those (or anyone you'd rather text), see the clean SMS link below.
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><span class="step">5</span>Text message (SMS) — clean link</h2>
+    <p class="hint">For guests you'd rather text than email. The link is <strong>not personalized</strong> — recipients will type their own name on the RSVP form. Best for group texts, quick individual sends, or guests without email.</p>
+
+    <label>Clean invite link</label>
+    <div style="display: flex; gap: 8px; align-items: stretch;">
+      <input type="text" id="smsLink" value="https://tinyurl.com/simones16paris" style="flex: 1;" />
+      <button class="btn" onclick="copySmsLink()">Copy link</button>
+    </div>
+    <p class="hint" style="margin-top: 6px;">
+      Default is <code>tinyurl.com/simones16paris</code> (already created, points to your invite). Edit above if you want a different link, or auto-generate a fresh one below.
+    </p>
+
+    <div class="toolbar" style="margin-top: 8px;">
+      <input type="text" id="tinyAlias" placeholder="custom alias (e.g. simone-sweet16)" style="flex: 1; max-width: 260px;" />
+      <button class="btn secondary" onclick="shortenLink()">Auto-shorten via TinyURL</button>
+      <span class="stats" id="tinyStatus"></span>
+    </div>
+
+    <label style="margin-top: 18px;">Suggested SMS text</label>
+    <textarea id="smsTemplate" style="min-height: 130px;">Hey! Simone (Skylar's daughter) is turning 16 on Aug 8 — she's throwing a Night in Paris party and would love for you to come. Details + RSVP: https://tinyurl.com/simones16paris  — Skylar</textarea>
+    <div class="toolbar">
+      <button class="btn" onclick="copySmsTemplate()">Copy SMS text</button>
+      <span class="stats" id="smsCharCount"></span>
+    </div>
+
+    <div class="info" style="margin-top: 14px;">
+      <strong>How to send:</strong> Open Messages / your phone's texting app → paste into a new message or group text → hit send. iPhone lets you send to up to ~20 recipients per group message; for larger lists, break into batches.
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const $ = id => document.getElementById(id);
+
+  function showToast(msg) {
+    const t = $('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(t._timer);
+    t._timer = setTimeout(() => t.classList.remove('show'), 1800);
+  }
+
+  function normalizePhone(p) { return p ? p.replace(/[^0-9]/g, '') : ''; }
+  function normalizeEmail(e) { return e ? e.trim().toLowerCase() : ''; }
+
+  function parseGuests() {
+    const raw = $('guestList').value;
+    const base = $('baseUrl').value.trim().replace(/\?.*$/, '');
+    const lines = raw.split(/\r?\n/);
+    const guests = [];
+    for (const line of lines) {
+      const trimmed = line.trim();
+      if (!trimmed) continue;
+      const parts = trimmed.split(/[\t,]/).map(s => s.trim());
+      const name  = parts[0] || '';
+      const email = normalizeEmail(parts[1] || '');
+      const phone = normalizePhone(parts[2] || '');
+      if (!name) continue;
+
+      const params = new URLSearchParams();
+      params.set('n', name);
+      if (email) params.set('e', email);
+      if (phone) params.set('p', phone);
+      const link = base + '?' + params.toString();
+      guests.push({ name, email, phone, link });
+    }
+
+    if (!guests.length) {
+      $('parsedCard').classList.remove('on');
+      $('sendCard').classList.remove('on');
+      $('stats').textContent = '';
+      showToast('Nothing to parse — add at least one Name');
+      return;
+    }
+
+    const tbody = $('guestTbody');
+    tbody.innerHTML = '';
+    guests.forEach(g => {
+      const contactHtml = [
+        g.email ? `<div>${escapeHtml(g.email)}</div>` : '',
+        g.phone ? `<div>${escapeHtml(formatPhone(g.phone))}</div>` : ''
+      ].join('') || '<div style="color:#bbb">—</div>';
+
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td><strong>${escapeHtml(g.name)}</strong>${!g.email ? ' <span style="color:#c00050;font-size:10px;font-weight:600;">(no email — will skip)</span>' : ''}</td>
+        <td class="contact">${contactHtml}</td>
+        <td>
+          <div class="link-cell" title="${escapeHtml(g.link)}">${escapeHtml(g.link)}</div>
+          <div style="margin-top:4px;"><button class="btn tiny secondary" onclick="copyText('${escapeAttr(g.link)}', 'Link copied!')">Copy link</button></div>
+        </td>
+      `;
+      tbody.appendChild(tr);
+    });
+
+    window._guests = guests;
+    $('parsedCard').classList.add('on');
+    $('sendCard').classList.add('on');
+    const withEmail = guests.filter(g => g.email).length;
+    $('stats').textContent = `${guests.length} guest${guests.length === 1 ? '' : 's'} · ${withEmail} email-ready`;
+    setTimeout(() => $('parsedCard').scrollIntoView({behavior:'smooth', block:'start'}), 60);
+  }
+
+  function clearGuests() {
+    $('guestList').value = '';
+    $('guestTbody').innerHTML = '';
+    $('parsedCard').classList.remove('on');
+    $('sendCard').classList.remove('on');
+    $('scriptPreview').classList.remove('on');
+    $('stats').textContent = '';
+    window._guests = null;
+  }
+
+  function copyText(text, msg) {
+    navigator.clipboard.writeText(text).then(
+      () => showToast(msg || 'Copied!'),
+      () => showToast('Copy failed')
+    );
+  }
+
+  function copyAllLinks() {
+    if (!window._guests) return;
+    const out = window._guests.map(g => `${g.name}\t${g.link}`).join('\n');
+    copyText(out, 'All links copied (Name\\tLink)');
+  }
+
+  function copySmsLink() {
+    copyText($('smsLink').value.trim(), 'Clean invite link copied');
+  }
+
+  function copySmsTemplate() {
+    copyText($('smsTemplate').value, 'SMS text copied — paste into Messages');
+  }
+
+  function updateSmsCharCount() {
+    const el = $('smsTemplate');
+    const n = el.value.length;
+    const parts = Math.ceil(n / 160);
+    $('smsCharCount').textContent = `${n} chars · ${parts} SMS segment${parts === 1 ? '' : 's'}`;
+  }
+
+  function downloadCsv() {
+    if (!window._guests) return;
+    const rows = [['Name','Email','Phone','PersonalLink']];
+    window._guests.forEach(g => rows.push([g.name, g.email, g.phone, g.link]));
+    const csv = rows.map(r => r.map(cell => {
+      const s = String(cell ?? '');
+      return /[,"\n]/.test(s) ? '"' + s.replace(/"/g,'""') + '"' : s;
+    }).join(',')).join('\n');
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'sweet16-guest-links-' + new Date().toISOString().slice(0,10) + '.csv';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    showToast('CSV downloaded');
+  }
+
+  function buildAppsScript() {
+    if (!window._guests) return '';
+    const guests = window._guests.filter(g => g.email);
+    const base = $('baseUrl').value.trim().replace(/\?.*$/, '');
+
+    // Format guest list as JavaScript array literal
+    const guestsCode = guests.map(g => {
+      return `  { name: ${JSON.stringify(g.name)}, email: ${JSON.stringify(g.email)}, phone: ${JSON.stringify(g.phone)} }`;
+    }).join(',\n');
+
+    return `/**
+ * Simone's Sweet 16 — Bulk Invite Sender
+ * Sends personalized invite emails via your Gmail.
+ *
+ * SETUP:
+ *   1. Save this file (Ctrl+S).
+ *   2. Run 'previewFirstInvite' first — check the log for the preview.
+ *   3. When ready, run 'sendAllInvites' to send to everyone.
+ *
+ * First run will prompt you to grant permission to send emails from your Gmail.
+ */
+
+const BASE_URL   = ${JSON.stringify(base)};
+const SUBJECT    = "You're Invited — Simone's Sweet 16 · A Night in Paris";
+const SENDER_NAME = "Skylar & Simone";
+
+const GUESTS = [
+${guestsCode}
+];
+
+/* ─── Helpers ─────────────────────────────────────────────── */
+
+function buildLink(g) {
+  const params = [
+    'n=' + encodeURIComponent(g.name),
+  ];
+  if (g.email) params.push('e=' + encodeURIComponent(g.email));
+  if (g.phone) params.push('p=' + encodeURIComponent(g.phone));
+  return BASE_URL + '?' + params.join('&');
+}
+
+function firstName(fullName) {
+  return (fullName.split(/\\s+/)[0] || 'friend');
+}
+
+function buildTextBody(g) {
+  const link = buildLink(g);
+  return "Hi " + firstName(g.name) + "!\\n\\n" +
+    "You're invited to Simone's Sweet 16 — A Night in Paris.\\n\\n" +
+    "📅 Saturday, August 8, 2026\\n" +
+    "🕕 6:00 – 10:00 PM\\n" +
+    "📍 Glessner House Museum\\n" +
+    "   1800 S. Prairie Ave, Chicago, IL 60616\\n" +
+    "👗 Dress: Paris Chic\\n\\n" +
+    "Tap to open your invite and RSVP:\\n" + link + "\\n\\n" +
+    "Can't wait to see you there!\\n— Skylar & Simone";
+}
+
+function buildHtmlBody(g) {
+  const first = firstName(g.name);
+  const link = buildLink(g);
+  return \`
+<div style="font-family: 'Helvetica Neue', Arial, sans-serif; max-width: 560px; margin: 0 auto; color: #1a1a1a; line-height: 1.55;">
+  <div style="text-align: center; padding: 22px 0 10px;">
+    <div style="font-family: 'Dancing Script', 'Brush Script MT', cursive; font-size: 42px; color: #e8175d; line-height: 1;">Hi \${first}!</div>
+    <div style="font-size: 11px; letter-spacing: 3px; color: #888; margin-top: 8px; text-transform: uppercase;">You're Invited</div>
+    <div style="font-family: 'Dancing Script', 'Brush Script MT', cursive; font-size: 54px; color: #e8175d; line-height: 1; margin: 4px 0 2px;">Sweet 16</div>
+    <div style="font-size: 13px; color: #666; letter-spacing: 1px;">~ A Night in Paris ~</div>
+  </div>
+
+  <div style="background: #fce8f0; border-radius: 10px; padding: 18px 22px; margin: 18px 0; font-size: 14px;">
+    <table style="width:100%; border-collapse: collapse; font-size: 14px;">
+      <tr>
+        <td style="padding:6px 0; color:#888; font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; width:70px;">When</td>
+        <td style="padding:6px 0;">Saturday, August 8, 2026<br/><span style="color:#666; font-size:13px;">6:00 – 10:00 PM</span></td>
+      </tr>
+      <tr>
+        <td style="padding:6px 0; color:#888; font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase;">Where</td>
+        <td style="padding:6px 0;">Glessner House Museum<br/><span style="color:#666; font-size:13px;">1800 S. Prairie Ave, Chicago, IL 60616</span></td>
+      </tr>
+      <tr>
+        <td style="padding:6px 0; color:#888; font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase;">Dress</td>
+        <td style="padding:6px 0;">Paris Chic</td>
+      </tr>
+    </table>
+  </div>
+
+  <div style="text-align: center; margin: 24px 0 16px;">
+    <a href="\${link}" style="display: inline-block; background: #e8175d; color: white; padding: 14px 34px; text-decoration: none; border-radius: 4px; font-weight: 700; letter-spacing: 2px; font-size: 12px; text-transform: uppercase;">Open Invitation &amp; RSVP</a>
+  </div>
+
+  <p style="text-align: center; color: #888; font-size: 13px; margin-top: 22px;">
+    Can't wait to celebrate with you.<br/>
+    <em>— Skylar &amp; Simone</em>
+  </p>
+</div>\`;
+}
+
+/* ─── Actions ─────────────────────────────────────────────── */
+
+function previewFirstInvite() {
+  if (!GUESTS.length) { Logger.log('No guests in the list.'); return; }
+  const g = GUESTS[0];
+  Logger.log('=== PREVIEW (not sent) ===');
+  Logger.log('TO: ' + g.email);
+  Logger.log('SUBJECT: ' + SUBJECT);
+  Logger.log('LINK: ' + buildLink(g));
+  Logger.log('--- TEXT BODY ---');
+  Logger.log(buildTextBody(g));
+  Logger.log('--- HTML BODY (rendered version emails will show) ---');
+  Logger.log(buildHtmlBody(g));
+}
+
+function sendAllInvites() {
+  const results = { sent: 0, failed: 0, skipped: 0, errors: [] };
+  GUESTS.forEach(g => {
+    if (!g.email) { results.skipped++; return; }
+    try {
+      MailApp.sendEmail({
+        to:       g.email,
+        subject:  SUBJECT,
+        body:     buildTextBody(g),
+        htmlBody: buildHtmlBody(g),
+        name:     SENDER_NAME
+      });
+      results.sent++;
+      Logger.log('✓ Sent: ' + g.name + ' <' + g.email + '>');
+    } catch (err) {
+      results.failed++;
+      results.errors.push(g.name + ': ' + err.message);
+      Logger.log('✗ FAILED: ' + g.name + ' — ' + err.message);
+    }
+  });
+  Logger.log('=== DONE ===');
+  Logger.log('Sent: ' + results.sent + ' | Skipped (no email): ' + results.skipped + ' | Failed: ' + results.failed);
+  if (results.errors.length) Logger.log('Errors:\\n' + results.errors.join('\\n'));
+  return results;
+}
+
+/* Send to just one guest by index (0 = first). Useful for testing on yourself. */
+function sendTestToMe() {
+  const g = { name: 'Skylar McGuire', email: 'skylarmcr24@gmail.com', phone: '' };
+  MailApp.sendEmail({
+    to:       g.email,
+    subject:  '[TEST] ' + SUBJECT,
+    body:     buildTextBody(g),
+    htmlBody: buildHtmlBody(g),
+    name:     SENDER_NAME
+  });
+  Logger.log('Test sent to ' + g.email);
+}
+`;
+  }
+
+  function copyAppsScript() {
+    if (!window._guests) return;
+    const withEmail = window._guests.filter(g => g.email);
+    if (!withEmail.length) {
+      showToast('No guests with emails to send');
+      return;
+    }
+    const code = buildAppsScript();
+    copyText(code, `Apps Script copied (${withEmail.length} recipients)`);
+    // Also show preview
+    $('scriptPreview').textContent = code;
+    $('scriptPreview').classList.add('on');
+  }
+
+  function toggleScriptPreview() {
+    const el = $('scriptPreview');
+    if (!el.textContent) el.textContent = buildAppsScript();
+    el.classList.toggle('on');
+  }
+
+  function formatPhone(p) {
+    const d = normalizePhone(p);
+    if (d.length === 10) return `(${d.slice(0,3)}) ${d.slice(3,6)}-${d.slice(6)}`;
+    if (d.length === 11 && d[0] === '1') return `+1 (${d.slice(1,4)}) ${d.slice(4,7)}-${d.slice(7)}`;
+    return p;
+  }
+
+  function escapeHtml(s) {
+    return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+  function escapeAttr(s) {
+    return String(s ?? '').replace(/'/g, "\\'").replace(/"/g, '&quot;');
+  }
+
+  async function shortenLink() {
+    const base = $('baseUrl').value.trim().replace(/\?.*$/, '');
+    const alias = $('tinyAlias').value.trim().replace(/[^a-zA-Z0-9-]/g, '');
+    const status = $('tinyStatus');
+    status.textContent = 'shortening…';
+    try {
+      const q = alias ? `?url=${encodeURIComponent(base)}&alias=${encodeURIComponent(alias)}` : `?url=${encodeURIComponent(base)}`;
+      const res = await fetch(`https://tinyurl.com/api-create.php${q}`);
+      const text = (await res.text()).trim();
+      if (text === 'Error' || !text.startsWith('http')) {
+        status.textContent = alias ? `"${alias}" is taken — try another` : 'shortening failed';
+        return;
+      }
+      // Replace old short/long link in template with new short URL
+      const oldLink = $('smsLink').value.trim();
+      $('smsLink').value = text;
+      const t = $('smsTemplate');
+      if (oldLink && t.value.includes(oldLink)) {
+        t.value = t.value.replace(oldLink, text);
+      } else if (t.value.includes(base)) {
+        t.value = t.value.replace(base, text);
+      }
+      updateSmsCharCount();
+      status.textContent = `✓ ${text}`;
+    } catch (e) {
+      status.textContent = 'network error — try again';
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const t = $('smsTemplate');
+    if (t) {
+      t.addEventListener('input', updateSmsCharCount);
+      updateSmsCharCount();
+    }
+  });
+</script>
+</body>
+</html>
